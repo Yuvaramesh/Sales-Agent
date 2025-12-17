@@ -1,6 +1,6 @@
 flask
 requests
-fastapu 
+fastapi
 pydantic
 "uvicorn[standard]"
 pymongo
