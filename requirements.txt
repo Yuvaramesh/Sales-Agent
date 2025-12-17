@@ -1,0 +1,9 @@
+flask
+requests
+fastapu 
+pydantic
+"uvicorn[standard]"
+pymongo
+langchain
+langchain-openai
+openai
