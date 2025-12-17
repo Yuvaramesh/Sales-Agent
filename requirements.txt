@@ -2,7 +2,7 @@ flask
 requests
 fastapi
 pydantic
-"uvicorn[standard]"
+uvicorn[standard]
 pymongo
 langchain
 langchain-openai
