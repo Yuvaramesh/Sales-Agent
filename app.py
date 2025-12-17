@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.secret_key = secrets.token_hex(32)
 
 # Backend API URL (adjust based on your setup)
-BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
+BACKEND_URL = os.getenv("BACKEND_URL", "https://sales-agent-hg11.onrender.com/")
 
 
 @app.route("/")
