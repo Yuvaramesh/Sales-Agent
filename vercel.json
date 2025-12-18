@@ -20,6 +20,6 @@
     }
   ],
   "env": {
-    "BACKEND_URL": "@backend_url"
+    "BACKEND_URL": "https://sales-agent-hg11.onrender.com"
   }
 }
