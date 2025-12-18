@@ -22,6 +22,11 @@ class EndSessionRequest(BaseModel):
     user_email: str
 
 
+@app.get("/")
+def health():
+    return {"status": "backend running on vercel"}
+
+
 @app.get("/health")
 def health():
     return {"status": "ok", "service": "car_recommendation_agent"}
@@ -47,8 +52,8 @@ def api_end_session(req: EndSessionRequest):
     return res
 
 
-if __name__ == "__main__":
-    # for local development
-    uvicorn.run(
-        "main:app", host="0.0.0.0", port=int(os.getenv("PORT", 8000)), reload=True
-    )
+# if __name__ == "__main__":
+#     # for local development
+#     uvicorn.run(
+#         "main:app", host="0.0.0.0", port=int(os.getenv("PORT", 8000)), reload=True
+#     )

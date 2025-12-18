@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.secret_key = secrets.token_hex(32)
 
 # Backend API URL - Use localhost for local development
-BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8000")
+# BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8000")
 
 
 @app.route("/")
@@ -144,7 +144,7 @@ def health():
     )
 
 
-if __name__ == "__main__":
-    print(f"[Flask] Starting Flask UI on port 5000")
-    print(f"[Flask] Backend URL: {BACKEND_URL}")
-    app.run(debug=True, host="0.0.0.0", port=5000)
+# if __name__ == "__main__":
+#     print(f"[Flask] Starting Flask UI on port 5000")
+#     print(f"[Flask] Backend URL: {BACKEND_URL}")
+#     app.run(debug=True, host="0.0.0.0", port=5000)

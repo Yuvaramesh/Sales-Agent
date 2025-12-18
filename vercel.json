@@ -1,34 +1,14 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "app.py",
-      "use": "@vercel/python"
-    },
-    {
-      "src": "static/styles.css",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "static/script.js",
-      "use": "@vercel/static"
+  "functions": {
+    "api/index.py": {
+      "runtime": "python3.12",
+      "maxDuration": 10
     }
-  ],
+  },
   "routes": [
     {
-      "src": "/static/styles.css",
-      "dest": "/static/styles.css"
-    },
-    {
-      "src": "/static/script.js",
-      "dest": "/static/script.js"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/app.py"
+      "dest": "/api/index.py"
     }
-  ],
-  "env": {
-    "BACKEND_URL": "https://sales-agent-hg11.onrender.com/"
-  }
+  ]
 }
