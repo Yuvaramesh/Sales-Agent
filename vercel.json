@@ -4,6 +4,14 @@
     {
       "src": "app.py",
       "use": "@vercel/python"
+    },
+    {
+      "src": "static/styles.css",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "static/script.js",
+      "use": "@vercel/static"
     }
   ],
   "routes": [

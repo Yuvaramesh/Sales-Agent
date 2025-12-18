@@ -2,7 +2,7 @@
 Flask Web Application for Car Recommendation Chatbot
 """
 
-from flask import Flask, render_template, request, jsonify, session
+from flask import Flask, render_template, request, jsonify, session, send_from_directory
 import requests
 import os
 from datetime import datetime
@@ -22,6 +22,15 @@ def index():
     if "user_session_id" not in session:
         session["user_session_id"] = None
     return render_template("index.html")
+
+
+@app.route("/static/<path:filename>")
+def serve_static(filename):
+    import os
+
+    if os.path.exists(os.path.join("public", filename)):
+        return send_from_directory("public", filename)
+    return send_from_directory("static", filename)
 
 
 @app.route("/api/chat", methods=["POST"])
