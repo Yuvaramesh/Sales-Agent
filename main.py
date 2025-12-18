@@ -6,7 +6,7 @@ from typing import Optional
 import uvicorn
 
 
-from agent import handle_user_query, end_session  # import the core functions
+from main_api import handle_user_query, end_session  # import the core functions
 
 app = FastAPI(title="Car Recommendation Agent API")
 
@@ -20,6 +20,11 @@ class QueryRequest(BaseModel):
 class EndSessionRequest(BaseModel):
     session_id: str
     user_email: str
+
+
+@app.get("/")
+def health():
+    return {"status": "backend running on vercel"}
 
 
 @app.get("/health")
@@ -47,8 +52,8 @@ def api_end_session(req: EndSessionRequest):
     return res
 
 
-if __name__ == "__main__":
-    # for local development
-    uvicorn.run(
-        "main:app", host="0.0.0.0", port=int(os.getenv("PORT", 8000)), reload=True
-    )
+# if __name__ == "__main__":
+#     # for local development
+#     uvicorn.run(
+#         "main:app", host="0.0.0.0", port=int(os.getenv("PORT", 8000)), reload=True
+#     )

@@ -11,8 +11,8 @@ import secrets
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(32)
 
-# Backend API URL (adjust based on your setup)
-BACKEND_URL = os.getenv("BACKEND_URL", "https://sales-agent-hg11.onrender.com/")
+# Backend API URL - Use localhost for local development
+# BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8000")
 
 
 @app.route("/")
@@ -46,6 +46,7 @@ def chat():
             return jsonify({"error": "Missing required fields"}), 400
 
         # Call backend API
+        print(f"[Flask] Sending request to {BACKEND_URL}/query")
         response = requests.post(
             f"{BACKEND_URL}/query",
             json={
@@ -68,12 +69,27 @@ def chat():
                 }
             )
         else:
-            return jsonify({"error": "Backend error"}), 500
+            print(f"[Flask] Backend error: {response.status_code} - {response.text}")
+            return jsonify({"error": f"Backend error: {response.status_code}"}), 500
 
     except requests.Timeout:
-        return jsonify({"error": "Request timeout"}), 504
+        print("[Flask] Request timeout")
+        return (
+            jsonify({"error": "Request timeout - backend took too long to respond"}),
+            504,
+        )
+    except requests.ConnectionError as e:
+        print(f"[Flask] Connection error: {e}")
+        return (
+            jsonify(
+                {
+                    "error": "Could not connect to backend server. Make sure it's running on port 8000"
+                }
+            ),
+            503,
+        )
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"[Flask] Error: {e}")
         return jsonify({"error": str(e)}), 500
 
 
@@ -111,8 +127,24 @@ def end_session_route():
 @app.route("/health")
 def health():
     """Health check endpoint"""
-    return jsonify({"status": "healthy", "service": "flask_ui"})
+    # Check if backend is reachable
+    try:
+        backend_response = requests.get(f"{BACKEND_URL}/health", timeout=5)
+        backend_healthy = backend_response.status_code == 200
+    except:
+        backend_healthy = False
+
+    return jsonify(
+        {
+            "status": "healthy",
+            "service": "flask_ui",
+            "backend_url": BACKEND_URL,
+            "backend_healthy": backend_healthy,
+        }
+    )
 
 
-if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5000)
+# if __name__ == "__main__":
+#     print(f"[Flask] Starting Flask UI on port 5000")
+#     print(f"[Flask] Backend URL: {BACKEND_URL}")
+#     app.run(debug=True, host="0.0.0.0", port=5000)
