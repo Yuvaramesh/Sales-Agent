@@ -6,7 +6,7 @@ from typing import Optional
 import uvicorn
 
 
-from agent import handle_user_query, end_session  # import the core functions
+from main_api import handle_user_query, end_session  # import the core functions
 
 app = FastAPI(title="Car Recommendation Agent API")
 
