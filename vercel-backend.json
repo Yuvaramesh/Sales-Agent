@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "main.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "50mb"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "main.py"
+    }
+  ],
+  "env": {
+    "OPENAI_API_KEY": "@openai_api_key",
+    "MONGODB_CONNECTION_STRING": "@mongodb_connection_string",
+    "TAVILY_API_KEY": "@tavily_api_key",
+    "LLM_MODEL_NAME": "gpt-4o-mini"
+  }
+}
