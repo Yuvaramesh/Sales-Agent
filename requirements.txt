@@ -7,5 +7,6 @@ pymongo
 langchain
 langchain-openai
 openai
-gunicorn==21.2.
+gunicorn==21.2.0
+
 requests
