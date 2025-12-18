@@ -3,23 +3,24 @@
   "builds": [
     {
       "src": "app.py",
-      "use": "@vercel/python",
-      "config": {
-        "maxLambdaSize": "50mb"
-      }
+      "use": "@vercel/python"
     }
   ],
   "routes": [
     {
-      "src": "/static/(.*)",
-      "dest": "/static/$1"
+      "src": "/static/styles.css",
+      "dest": "/static/styles.css"
+    },
+    {
+      "src": "/static/script.js",
+      "dest": "/static/script.js"
     },
     {
       "src": "/(.*)",
-      "dest": "app.py"
+      "dest": "/app.py"
     }
   ],
   "env": {
-    "BACKEND_URL": "https://sales-agent-hg11.onrender.com"
+    "BACKEND_URL": "https://sales-agent-hg11.onrender.com/"
   }
 }
