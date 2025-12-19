@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.secret_key = secrets.token_hex(32)
 
 # Backend API URL - Use localhost for local development
-# BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8000")
+BACKEND_URL = os.getenv("BACKEND_URL", "https://your-backend-url.vercel.app")
 
 
 @app.route("/")
