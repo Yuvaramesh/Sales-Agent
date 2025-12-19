@@ -54,7 +54,7 @@ def chat():
                 "user_email": user_email,
                 "user_query": user_query,
             },
-            timeout=60,
+            timeout=120,
         )
 
         if response.status_code == 200:
