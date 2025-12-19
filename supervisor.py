@@ -37,6 +37,36 @@ def supervisor_invoke(
                 session.get("user_email", user_email) or user_email, session_id, session
             )
 
+    # CHECK FOR SESSION END REQUEST - ADD THIS SECTION
+    end_keywords = [
+        "end the session",
+        "end session",
+        "end conversation",
+        "end this session",
+        "bye",
+        "goodbye",
+        "end now",
+        "finish",
+        "done",
+        "close session",
+    ]
+    user_query_lower = user_query.lower().strip()
+
+    if any(keyword in user_query_lower for keyword in end_keywords):
+        # Generate and save summary immediately
+        summary = memory_manager.end_session_and_save(session_id)
+
+        goodbye_msg = (
+            "Thank you for using AutoBot! 🚗\n\n"
+            "Your session has been saved. We look forward to helping you again!\n\n"
+            "Have a great day! 👋"
+        )
+
+        memory_manager.add_message(
+            session_id, user_query, goodbye_msg, agent_used="SessionHandler"
+        )
+        return goodbye_msg, session_id
+
     # Extract contact info
     contact_info = extract_contact_info(user_query)
     if contact_info:
